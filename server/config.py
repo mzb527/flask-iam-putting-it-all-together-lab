@@ -14,11 +14,10 @@ app.json.compact = False
 metadata = MetaData(naming_convention={
     "fk": "fk_%(table_name)s_%(column_0_name)s_%(referred_table_name)s",
 })
+
 db = SQLAlchemy(metadata=metadata)
+db.init_app(app)  # Ensure database is initialized first
 
-migrate = Migrate(app, db)
-db.init_app(app)
-
+migrate = Migrate(app, db)  # Move this after db.init_app(app)
 bcrypt = Bcrypt(app)
-
 api = Api(app)
